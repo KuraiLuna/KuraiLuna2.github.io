@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>반 웹 게임즈</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript"> function goPage() { location.href="VN.html"; } </script>
+<style>
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+</style>
+
+<script src="https://use.fontawesome.com/926fe18a63.js"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script>
+$(function(){
+	$(".headC").click(function(){
+		$(".headB").slideToggle();
+	});
+});
+</script>
+        
+<!-- [눈내리는 효과] -->
+ <script type="text/javascript">
+//이 코드는 외부 라이브러리 
+(function ()
+{
+    function k(a, b, c)
+    {
+        if (a.addEventListener) {
+            a.addEventListener(b, c, false);
+        }
+        else {
+            a.attachEvent && a.attachEvent("on" + b, c);
+        }
+    }
+    function g(a)
+    {
+        if (typeof window.onload != "function")
+        {
+            window.onload = a;
+        }
+        else {
+            var b = window.onload;
+            window.onload = function ()
+            {
+                b();
+                a()
+            }
+        }
+    }
+    function h()
+    {
+        var a = {};
+        for (type in {
+            Top : "", Left : ""
+        })
+        {
+            var b = type == "Top" ? "Y" : "X";
+            if (typeof window["page" + b + "Offset"] != "undefined") {
+                a[type.toLowerCase()] = window["page" + b + "Offset"];
+            }
+            else
+            {
+                b = document.documentElement.clientHeight ? document.documentElement : document.body;
+                a[type.toLowerCase()] = b["scroll" + type];
+            }
+        }
+        return a
+    }
+    function l()
+    {
+        var a = document.body, b;
+        if (window.innerHeight) {
+            b = window.innerHeight;
+        }
+        else if (a.parentElement.clientHeight) {
+            b = a.parentElement.clientHeight;
+        }
+        else if (a && a.clientHeight) {
+            b = a.clientHeight;
+        }
+        return b
+    }
+    function i(a)
+    {
+        this.parent = document.body;
+        this.createEl(this.parent, a);
+        this.size = Math.random() * 4 + 4;
+        this.el.style.width = Math.round(this.size) + "px";
+        this.el.style.height = Math.round(this.size) + "px";
+        this.maxLeft = document.body.offsetWidth - this.size;
+        this.maxTop = document.body.offsetHeight - this.size;
+        this.left = Math.random() * this.maxLeft;
+        this.top = h().top + 1;
+        this.angle = 1.4 + 0.2 * Math.random();
+        this.minAngle = 1.4;
+        this.maxAngle = 1.6;
+        this.angleDelta = 0.01 * Math.random();
+        this.speed = 4 + Math.random()
+    }
+    var j = false;
+    g(function ()
+    {
+        j = true;
+    });
+    var f = true;
+    window.createSnow = function (a, b)
+    {
+        if (j)
+        {
+            var c = [], m = setInterval(function ()
+            {
+                f && b > c.length && Math.random() < b * 0.0025 && c.push(new i(a));
+                !f && !c.length && clearInterval(m);
+                for (var e = h().top, n = l(), d = c.length - 1; d >= 0; d--) if (c[d]) if (c[d].top < e || c[d].top + c[d].size + 1 > e + n) {
+                    c[d].remove();
+                    c[d] = null;
+                    c.splice(d, 1)
+                }
+                else {
+                    c[d].move();
+                    c[d].draw()
+                }
+            }, 40);
+            k(window, "scroll", function ()
+            {
+                for (var e = c.length - 1; e >= 0; e--) {
+                    c[e].draw();
+                }
+            })
+        }
+        else {
+            g(function () 
+            {
+                createSnow(a, b) 
+            });
+        }
+    };
+    window.removeSnow = function ()
+    {
+        f = false;
+    };
+    i.prototype = 
+    {
+        createEl : function (a, b)
+        {
+            this.el = document.createElement("img");
+            this.el.setAttribute("src", b + "./img2/snow" + Math.floor(Math.random() * 4) + ".gif");
+            this.el.style.position = "absolute";
+            this.el.style.display = "block";
+            this.el.style.zIndex = "99999";
+            this.parent.appendChild(this.el)
+        },
+        move : function ()
+        {
+            if (this.angle < this.minAngle || this.angle > this.maxAngle) {
+                this.angleDelta =- this.angleDelta;
+            }
+            this.angle += this.angleDelta;
+            this.left += this.speed * Math.cos(this.angle * Math.PI);
+            this.top -= this.speed * Math.sin(this.angle * Math.PI);
+            if (this.left < 0) {
+                this.left = this.maxLeft;
+            }
+            else if (this.left > this.maxLeft) {
+                this.left = 0;
+            }
+        },
+        draw : function ()
+        {
+            this.el.style.top = Math.round(this.top) + "px";
+            this.el.style.left = Math.round(this.left) + "px";
+        },
+        remove : function ()
+        {
+            this.parent.removeChild(this.el);
+            this.parent = this.el = null;
+        }
+    }
+})
+();
+</script>
+<script>
+    createSnow('./', 2000);
+	//------------ ./는 이미지 경로, 1000는 눈 갯수(숫자가 크면 클수록 폭설이 내립니다.)
+</script>
+<!-- [눈내리는 효과 끝] -->
+
+<!--[음악 플래이어] -->
+<!-- [이것도 외부 라이브러리] -->    
+<!-- SCM Music Player http://scmplayer.co -->
+<script type="text/javascript" src="http://scmplayer.co/script.js" 
+data-config="{'skin':'skins/simpleBlue/skin.css','volume':50,'autoplay':true,'shuffle':true,'repeat':1,'placement':'bottom','showplaylist':false,'playlist':[{'title':'Qurare: Magic Library-Can you interpret?','url':'https://youtu.be/qUmLCD11wk0'},{'title':'%uD050%uB77C%uB808 %uB9C8%uBC95%uB3C4%uC11C%uAD00 - Magic(%uAC00%uC0AC%uC788%uB294 %uBE0C%uAE08)','url':'https://youtu.be/1ZNX-UzuJTM'},{'title':'Max Payne: Bloodbath','url':'https://soundcloud.com/samgorski/max-payne-blood-bath'},{'title':'%uD050%uB77C%uB808 %uB9C8%uBC95%uB3C4%uC11C%uAD00 - Tears of the rain (%uC2A4%uD1A0%uB9AC%uBE0C%uAE08)','url':'https://youtu.be/2wvC4Dg8rrc'},{'title':'The Godfather OST - Main Theme','url':'https://www.youtube.com/watch?v=odf94qQoxLk'},{'title':'%u301096%u732B%u3011%u864E%u8996%u7708%u3005%u3092%u6B4C%u3063%u3066%u307F%u305F','url':'https://www.youtube.com/watch?v=YxOUrss6ogI'}]}" ></script>
+<!-- SCM Music Player script end -->
+<!-- [음악 플래이어 끝] -->
+
+<!-- [로그인 띄우기] -->
+<SCRIPT language="JavaScript"> 
+function PopWin(url, w, h, sb) {
+ var newWin;
+ var setting = "width="+w+", height="+h+", top=5, left=20, scrollbars="+sb;
+ newWin = window.open (url, "", setting);
+ newWin.focus();
+}
+</SCRIPT>
+<!-- [로그인 띄우기 끝] -->  
+</head>
+
+<body>
+
+<!--[ 메인매뉴 ]-->    
+<header class="head-color">
+<div class="container">
+	<div class="container-small">
+		<a href="VN.html" class="headA"><img src="/img/incoding.png"></a>
+
+		<button type="button" class="headC">
+			<span class="fa fa-bars" title="MENU"></span>
+		</button>
+	</div>
+
+	<nav class="headB">
+		<ul>
+			<li><a href="javascript:PopWin('/HTML/login.html','310','160','no');">로그인</a></li>
+			<li><a href="index.html">게임</a></li>
+
+		</ul>
+	</nav>
+</div>    
+</header>
+<!--[ 메인매뉴 끝]-->
+
+<!--[ 메인 이미지 ]-->     
+<section class="conA compact">
+<div class="container">
+		<h1 style="font-family:HY나무M; font-size: 55px;"></h1>
+        <p></p>
+</div>
+</section>
+<!--[ 메인 이미지 끝 ]--> 
+<img src="img/PG.png"><br>
+<!--[ 각 개체 ]-->     
+<section class="listA">
+<h1 class="sr-only">RECENT POSTS</h1>
+<div class="container">
+    <article>
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img/%ED%97%AC%EA%B8%B0%EC%96%B4%ED%83%9D.png);"></div>
+		<div class="text">
+			<h2> 헬기어텍2 </h2>
+			<p> 적의 헬기로 부터 자신을 지켜라</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img3/qurare.png);"></div>
+		<div class="text">
+			<h2>큐라레:마법도서관</h2>
+			<p>불과 1-2년전 모바일게임 의 "큐라레:마법도서관" 메인스토리 를 옮겨출간된 노벨소설</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img3/rnltlswjs.png);"></div>
+		<div class="text">
+			<h2>귀신전</h2>
+			<p>10년전.. 휴머니즘을 접목시킨 퇴마소설</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(img/p04.jpg);"></div>
+		<div class="text">
+			<h2>더 라스트 베를린</h2>
+            <p>본격 오컬트(?)2차세계대전 소설<br>               
+                좀비아미트릴로지 팬픽소설</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img3/WB.png);"></div>
+		<div class="text">
+			<h2>웨폰 브레이커</h2>
+			<p>11년전 컬처쇼크 였던 판타지소설</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img3/JS.png);"></div>
+		<div class="text">
+			<h2>정령왕의 딸</h2>
+			<p>11년전 정령왕의 딸이 펼치는 판타지소설</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img3/KA.png);"></div>
+		<div class="text">
+			<h2>카르세아린</h2>
+			<p>1990년대 PC통신시절 나온 판타지소설 중 하나</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img/Eris2.png);"></div>
+		<div class="text">
+			<h2>냉 무</h2>
+			<p>이건그양 개채 채우기용</p>
+		</div>
+	</a>
+	</article>
+
+	<article>
+	<a href="#">
+		<div class="photo" style="background-image: url(/img/JJ.png);"></div>
+		<div class="text">
+			<h2>냉 무</h2>
+			<p>이건그양 개채 채우기용</p>
+		</div>
+	</a>
+	</article>
+
+</div>
+</section>
+<!--[ 각 개체 끝]--> 
+
+<!--[ 사이트 끝자락 ]-->     
+<footer>
+<div class="container">
+
+	<div class="footA">
+		<h2>반 웹소설</h2>
+		<p>
+		누구나 할 수 있는 게임<br>
+		<a href="http://logger.nett/">반 플래시&웹게임 즈</a>
+		</p>
+
+		<nav class="footD">
+			<ul>
+
+
+				<li><a href="#">
+					<span class="fa fa-facebook"
+					 title="Facebook"></span>
+				</a></li>
+
+
+
+				<li><a href="#">
+					<span class="fa fa-instagram"
+					 title="Instagram"></span>
+				</a></li>
+
+
+			</ul>
+		</nav>
+	</div>
+
+	<nav class="footB">
+
+
+		<div>
+			<h3>SUPPORT</h3>
+			<ul>
+				<li><a href="#">매뉴얼</a></li>
+				<li><a href="#">자주 묻는 질문</a></li>
+				<li><a href="#">문의</a></li>
+			</ul>
+		</div>
+
+
+	</nav>
+
+	<div class="footC">
+		© Van's corp. All rights reserved.
+	</div>
+
+</div>
+</footer>
+<!--[ 사이트 끝자락 끝]--> 
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>    
