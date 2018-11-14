@@ -3,7 +3,7 @@
     <HEAD>
         <title> HTML 로 만들어보는 큐라레달력 </title>
         <meta charset="utf-8">      
-        
+        <link rel="stylesheet" href="//fonts.googleapis.com/earlyaccess/nanumpenscript.css">
         <style>
         @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);  
         .sunday{color: red;}
@@ -38,14 +38,14 @@
         -o-background-size: cover;
         background-size: cover;
     }
-
-
-
+            
+    div { float: left; }
+    .normal * { font-weight: normal; }
     </style>
     </HEAD>
     <BODY>
 
-    <div style="position: relative; z-index: 2;">
+    <div class='normal' style="position: relative; z-index: 2;">
         <table border="1" style="margin: auto; text-align: center;">               
             <tr>
                 <td colspan="7" class="title"><a>2018년 12월 달력</a></td>                
